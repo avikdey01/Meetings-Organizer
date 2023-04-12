@@ -1,0 +1,191 @@
+<%- include('header'); -%>
+
+
+
+
+
+<!-- Greetings -->
+<h1 class="hello">Hello Avik,</h1>
+<% if(meets.length === 0) { %>
+  <h2>Yeahh! You have NO Upcoming Meetings</h2>
+<% } else if(meets.length === 1){ %>
+  <h2>You have 1 Upcoming Meeting</h2>
+<% } else { %>
+  <h2>You have <%= meets.length %> Upcoming Meetings</h2>
+<% } %>
+
+
+
+
+<!-- Table Header -->
+<div class="row">
+  <div class="column col-lg-3"></div>
+  <div class="heading-card col-lg-6">
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="header-item">
+          <p>Time</p>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="item1">
+          <p>Meeting Name</p>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="header-item">
+          <p>Join</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="column col-lg-3"></div>
+</div>
+
+
+
+<!-- Table Items -->
+
+
+<% meets.forEach(function(meet) { %>
+<div class="row">
+  <div class="column col-lg-3"></div>
+  <div class="meeting-card col-lg-6">
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="item">
+          <p class="meeting-text"><%= meet.time %></p>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="item1">
+          <p class="meeting-text"><%= meet.name %></p>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="item-btn">
+          <form action="/join" method="post">
+            <button name="joinBtn" value="<%= meet.link %>" type="submit" class="join-btn">Join</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="column delete-btn-div col-lg-1">
+    <form action="/delete" method="post">
+      <button class="delete-btn" type="submit" name="deleteBtnId" value="<%= meet._id %>">
+        <i class="delete-btn-icon fa-solid fa-circle-xmark fa-2x"></i>
+      </button>
+    </form>
+
+  </div>
+  <div class="column col-lg-2"></div>
+</div>
+<% }) %>
+
+
+
+
+
+
+
+<!-- <div class="row">
+      <div class="column col-lg-3"></div>
+      <div class="meeting-card col-lg-6">
+        <div class="row">
+          <div class="col-lg-4">
+            <div class="item">
+              <p class="meeting-text">12:00 PM</p>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="item1">
+              <p class="meeting-text">DSP Class</p>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="item-btn">
+              <button type="submit" class="join-btn">Join</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="column delete-btn-div col-lg-1">
+        <button class="delete-btn" type="submit" name="delete-button">
+          <i class="delete-btn-icon fa-solid fa-circle-xmark fa-2x"></i>
+        </button>
+      </div>
+      <div class="column col-lg-2"></div>
+    </div>
+
+
+
+    <div class="row">
+      <div class="column col-lg-3"></div>
+      <div class="meeting-card col-lg-6">
+        <div class="row">
+          <div class="col-lg-4">
+            <div class="item">
+              <p class="meeting-text">12:00 PM</p>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="item1">
+              <p class="meeting-text">DSP Class</p>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="item-btn">
+              <button type="submit" class="join-btn">Join</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="column delete-btn-div col-lg-1">
+        <button class="delete-btn" type="submit" name="delete-button">
+          <i class="delete-btn-icon fa-solid fa-circle-xmark fa-2x"></i>
+        </button>
+      </div>
+      <div class="column col-lg-2"></div>
+    </div>
+
+
+
+    <div class="row">
+      <div class="column col-lg-3"></div>
+      <div class="meeting-card col-lg-6">
+        <div class="row">
+          <div class="col-lg-4">
+            <div class="item">
+              <p class="meeting-text">12:00 PM</p>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="item1">
+              <p class="meeting-text">DSP Class</p>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="item-btn">
+              <button type="submit" class="join-btn">Join</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="column delete-btn-div col-lg-1">
+        <button class="delete-btn" type="submit" name="delete-button">
+          <i class="delete-btn-icon fa-solid fa-circle-xmark fa-2x"></i>
+        </button>
+      </div>
+      <div class="column col-lg-2"></div>
+    </div> -->
+
+<form class="" action="/" method="post">
+  <button class="add-meet-btn" type="submit" name="button">Add Meeting</button>
+</form>
+
+
+
+
+
+<%- include("footer"); -%>

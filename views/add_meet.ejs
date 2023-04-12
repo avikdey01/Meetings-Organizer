@@ -1,0 +1,32 @@
+<%- include("header"); -%>
+
+
+  <h1 class="add-meet-heading">Add New Meeting</h1>
+  <form class="add-meet-form" action="/add" method="post">
+    <div class="row">
+      <div class="col">
+        <label class="form-label">Meeting Name</label>
+        <input name="meetName" type="text" class="form-control" placeholder="Meeting Name">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <label class="form-label">Meeting Link</label>
+        <input name="meetLink" type="text" class="form-control" placeholder="Meeting Link">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <label class="form-label">Date</label>
+        <input name="meetDate" type="date" class="form-control" placeholder="Date">
+      </div>
+      <div class="col">
+        <label class="form-label">Time</label>
+        <input name="meetTime" type="time" class="form-control" placeholder="Time">
+      </div>
+    </div>
+    <button class="add-meet-btn" type="submit" name="button">Add Meeting</button>
+  </form>
+
+
+<%- include("footer"); -%>
