@@ -2,6 +2,9 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
+
+const saltRounds = 10;
 
 const app = express();
 
@@ -12,6 +15,15 @@ app.use(express.static("public"));
 
 //mongoose mongoDB setup
 mongoose.connect("mongodb://localhost:27017/meetsDB", {useNewUrlParser: true});
+
+const userSchema = new mongoose.Schema({
+  name: String,
+  email: String,
+  password: String,
+  meets: []
+});
+
+const User = mongoose.model("User", userSchema);
 
 const meetSchema = new mongoose.Schema({
   name: String,
@@ -39,12 +51,53 @@ app.get("/", function(req, res) {
 
 });
 
+app.get("meets/:route", function(req, res) {
+  const customRoute = req.params.route;
+  User.findOne({email: customRoute}, function(err, foundUser) {
+    if(!err) {
+      res.render("index", {username: foundUser.name, usermeets: foundUser.meets});
+    }
+  });
+});
+
+app.get("/register", function(req, res) {
+  res.render("register");
+});
+
+app.get("/login", function(req, res) {
+  res.render("login");
+});
+
 app.get("/add", function(req, res) {
   res.render("add_meet");
 });
 
 app.post("/", function(req,res) {
   res.redirect("/add");
+});
+
+app.post("/register", function(req, res) {
+  bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
+    const user = new User({
+      name: req.body.name,
+      email: req.body.email,
+      password: hash,
+      meets: []
+    });
+    user.save(function(err) {
+      if(err) {
+        console.log(err);
+      } else {
+        res.redirect("/");
+      }
+    });
+  });
+});
+
+app.post("/login", function(req, res) {
+  bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
+
+  });
 });
 
 app.post("/add", function(req, res) {

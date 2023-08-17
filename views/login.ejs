@@ -1,0 +1,23 @@
+<%- include('header'); -%>
+
+
+<h1 class="add-meet-heading">Login Now</h1>
+<form class="register-form" action="/login" method="post">
+  <div class="row">
+    <div class="col">
+      <label class="form-label">Email</label>
+      <input name="email" type="text" class="form-control" placeholder="Your Email">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <label class="form-label">Password</label>
+      <input name="password" type="password" class="form-control" placeholder="Password">
+    </div>
+  </div>
+  <button class="add-meet-btn" type="submit" name="button">Login</button>
+</form>
+
+
+
+<%- include("footer"); -%>
