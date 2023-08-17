@@ -51,15 +51,6 @@ app.get("/", function(req, res) {
 
 });
 
-app.get("meets/:route", function(req, res) {
-  const customRoute = req.params.route;
-  User.findOne({email: customRoute}, function(err, foundUser) {
-    if(!err) {
-      res.render("index", {username: foundUser.name, usermeets: foundUser.meets});
-    }
-  });
-});
-
 app.get("/register", function(req, res) {
   res.render("register");
 });
@@ -70,6 +61,15 @@ app.get("/login", function(req, res) {
 
 app.get("/add", function(req, res) {
   res.render("add_meet");
+});
+
+app.get("meets/:route", function(req, res) {
+  const customRoute = req.params.route;
+  User.findOne({email: customRoute}, function(err, foundUser) {
+    if(!err) {
+      res.render("index", {username: foundUser.name, usermeets: foundUser.meets});
+    }
+  });
 });
 
 app.post("/", function(req,res) {
@@ -88,15 +88,27 @@ app.post("/register", function(req, res) {
       if(err) {
         console.log(err);
       } else {
-        res.redirect("/");
+        res.render("login", {meets: user.meets});
       }
     });
   });
 });
 
 app.post("/login", function(req, res) {
-  bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
-
+  const email = req.body.email;
+  const password = req.body.password;
+  User.findOne({email: email}, function(err, foundUser) {
+    if(err) {
+      console.log(err);
+    } else {
+      if(foundUser) {
+        bcrypt.compare(password, foundUser.password, function(err, result) {
+          if(result === true) {
+            res.render("index", {meets: foundUser.meets});
+          }
+        });
+      }
+    }
   });
 });
 
@@ -126,6 +138,8 @@ app.post("/delete", function(req, res) {
   });
   res.redirect("/");
 });
+
+
 
 app.post("/join", function(req, res) {
   const url = req.body.joinBtn;
